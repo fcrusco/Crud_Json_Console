@@ -8,7 +8,7 @@ namespace CrudJsonConsole.Utils
         {
             while (true)
             {
-                Console.Clear();
+                SafeClear();
                 Console.WriteLine("CRUD JSON");
                 Console.WriteLine("----------------------------");
                 Console.WriteLine("[1] Listar");
@@ -211,5 +211,19 @@ namespace CrudJsonConsole.Utils
         {
             Console.WriteLine("JSON: " + caminhoJson);
         }
+
+
+        private static void SafeClear()
+        {
+            try
+            {
+                // Só limpa quando houver console
+                if (!Console.IsOutputRedirected && !Console.IsInputRedirected)
+                    Console.Clear();
+            }
+            catch (IOException) { /* ignorar em ambientes sem console */ }
+            catch (PlatformNotSupportedException) { /* alguma plataforma sem console */ }
+        }
+
     }
 }
